@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YeelightNET
 {
@@ -111,7 +112,8 @@ namespace YeelightNET
 
                     string responseJSON = Encoding.ASCII.GetString(buffer);
                     dynamic response = JsonConvert.DeserializeObject(responseJSON);
-                    return response.result[0] == "ok";
+                    JObject jResponse  = (JObject)response;
+                    return jResponse["error"] == null;
                 }
                 else
                 {
